@@ -57,25 +57,25 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
                 # Gerar matriz de adjacencia
                 matriz_adjacencias = gerar_matriz_adjacencias(dados, matriz_distancias, medida_distancia, k, adjacencia)
 
-                simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_adjacencias)
-
                 # Usado no RBF
                 sigma = retornar_sigma(matriz_distancias, k)
 
                 # 4 - Para cada ponderação
                 for ponderacao in Ponderacao:
                     # Gerar matriz pesos
-                    matriz_pesos = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, ponderacao)
+                    matriz_pesos1 = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, ponderacao)
 
                     for esparcidade in Esparcidade:
 
                         alpha = 0.1
                         if adjacencia != "MST":
-                            matriz_pesos = retonarBackBone(matriz_adjacencias, matriz_pesos, alpha, esparcidade)
+                            matriz_pesos2 = retonarBackBone(matriz_adjacencias, matriz_pesos1, alpha, esparcidade)
+                        else:
+                            matriz_pesos2 = matriz_pesos1
 
-                        simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos)
+                        simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos2)
 
-                        L_normalizada = laplacianas(matriz_pesos)
+                        L_normalizada = laplacianas(matriz_pesos2)
 
                         #del matriz_distancias, matriz_adjacencias
                         # 5 - Para cada quantidade de rotulos

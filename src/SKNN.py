@@ -3,7 +3,7 @@ from sklearn.neighbors import kneighbors_graph
 
 def getOrderbyRelevance(matriz_distancias):
 
-   closeness = 1 / matriz_distancias.sum(axis=1) 
+   closeness = matriz_distancias.shape[0] / matriz_distancias.sum(axis=1) 
 
    R = np.argsort(closeness)
 

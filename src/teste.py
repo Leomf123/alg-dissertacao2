@@ -105,6 +105,6 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
                                 # gravar resultado em uma linha usando pandas
                                 gravar_resultados(indice_dataset, test_ID, nome_dataset, k, adjacencia, simetrica, conectado, positivo, ponderacao, r, e, esparcidade, seeds[e], nRotulos, acuracia, f_measure)
 
-                                #print("test_ID: ", test_ID, ' ', nRotulos)
+                                print("test_ID: ", test_ID, ' ', k, ' ', adjacencia, ' ', ponderacao)
 
                                 test_ID += 1

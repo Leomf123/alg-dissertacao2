@@ -1,10 +1,10 @@
 import numpy as np
 from sklearn.neighbors import kneighbors_graph
-from prim import primMaxST
+from prim import primMST
 
-def adicionarMaxST(matriz_adjacencia, matriz_distancia):
+def adicionarMinMST(matriz_adjacencia, matriz_distancia):
 
-    MaxST = np.array(primMaxST(matriz_distancia))
+    MaxST = np.array(primMST(matriz_distancia))
     MaxST[MaxST != 0] = 1
 
     # Mesclar as matrizes
@@ -15,7 +15,7 @@ def adicionarMaxST(matriz_adjacencia, matriz_distancia):
 # MKNN para calcular a matriz de adjacencias
 # entrada: matriz de distancia, k
 # saida: matriz de adjacencia
-def Mknn(dados, matriz_distancia, medida_distancia, k):
+def MinMknn(dados, matriz_distancia, medida_distancia, k):
 
     # Converte em bool para usar a rogerstanimoto sem da warning
     if medida_distancia == 'rogerstanimoto':
@@ -27,6 +27,6 @@ def Mknn(dados, matriz_distancia, medida_distancia, k):
 
     matriz_adjacencia = np.minimum(matriz_adjacencia, matriz_adjacencia_transposta)
 
-    matriz_adjacencia = adicionarMaxST(matriz_adjacencia, matriz_distancia)
+    matriz_adjacencia = adicionarMinMST(matriz_adjacencia, matriz_distancia)
 
     return matriz_adjacencia

@@ -2,7 +2,8 @@ import numpy as np
 from sklearn.neighbors import kneighbors_graph
 
 from prim import primMST
-from MKNN import Mknn
+from maxMKNN import MaxMknn
+from minMKNN import MinMknn
 from SKNN import Sknn
 
 def tratamento_no_isolado(matriz_adjacencia, matriz_distancia):
@@ -84,5 +85,8 @@ def gerar_matriz_adjacencias(dados, matriz_distancias, medida_distancia, k = 4, 
   elif algoritmo == 'SKNN':
     return Sknn(dados, matriz_distancias, medida_distancia, k)
      
-  elif algoritmo == 'MKNN':
-    return Mknn(dados, matriz_distancias, medida_distancia, k)
+  elif algoritmo == 'MaxMKNN':
+    return MaxMknn(dados, matriz_distancias, medida_distancia, k)
+
+  elif algoritmo == 'MinMKNN':
+    return MinMknn(dados, matriz_distancias, medida_distancia, k)

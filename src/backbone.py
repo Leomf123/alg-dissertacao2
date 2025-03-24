@@ -19,7 +19,7 @@ def backbone(matriz_adjacencia, matriz_pesos, alpha):
             p_i = (1 - (matriz_pesos[i, j] / matriz_somas[i])) ** (K_i - 1)
             p_j = (1 - (matriz_pesos[j, i] / matriz_somas[j])) ** (K_j - 1)
 
-            p = max(p_i, p_j)
+            p = min(p_i, p_j)
 
             if p >= alpha:
                 matriz_backbone[i, j] = 0

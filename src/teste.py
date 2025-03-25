@@ -67,11 +67,11 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
 
                     for esparcidade in Esparcidade:
 
+                        if adjacencia == 'MST' and esparcidade == 'Sim':
+                            break
+
                         alpha = 0.1
-                        if adjacencia != "MST":
-                            matriz_pesos2 = retonarBackBone(matriz_adjacencias, matriz_pesos1, alpha, esparcidade)
-                        else:
-                            matriz_pesos2 = matriz_pesos1
+                        matriz_pesos2 = retonarBackBone(matriz_adjacencias, matriz_pesos1, alpha, esparcidade)
 
                         simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos2)
 

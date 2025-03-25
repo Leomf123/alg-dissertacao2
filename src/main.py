@@ -44,7 +44,7 @@ def main(indice_dataset):
 
     Ponderacao = ["RBF", "HM", "LLE"]
 
-    Esparcidade = [ "Sim", "Nao"]
+    Esparcidade = ["Nao", "Sim"] #Essa ordem importa no código de teste
 
     Quantidade_rotulos = [0.02, 0.05, 0.08, 0.1]
 

@@ -71,7 +71,7 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
                             break
 
                         alpha = 0.1
-                        matriz_pesos2 = retonarBackBone(matriz_adjacencias, matriz_pesos1, alpha, esparcidade)
+                        matriz_pesos2 = retonarBackBone(matriz_pesos1, alpha, esparcidade)
 
                         simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos2)
 

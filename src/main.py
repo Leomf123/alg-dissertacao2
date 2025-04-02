@@ -40,17 +40,15 @@ def main(indice_dataset):
 
     K = [4, 6, 8, 10, 12, 14, 16]
 
-    Adjacencia = ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN"]
+    Adjacencia = ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN", "Completa"]
 
-    Ponderacao = ["RBF", "HM", "LLE"]
-
-    Esparcidade = ["Nao", "Sim"] #Essa ordem importa no código de teste
+    Ponderacao = ["RBF", "Backbone"]
 
     Quantidade_rotulos = [0.02, 0.05, 0.08, 0.1]
 
     Quantidade_experimentos = 20
     
-    teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos, Esparcidade)
+    teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos)
 
 
 if __name__ == "__main__":

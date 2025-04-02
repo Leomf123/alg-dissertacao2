@@ -86,3 +86,7 @@ def gerar_matriz_adjacencias(dados, matriz_distancias, medida_distancia, k = 4, 
      
   elif algoritmo == 'MKNN':
     return Mknn(dados, matriz_distancias, medida_distancia, k)
+  
+  elif algoritmo == 'Completa':
+    return np.ones((matriz_distancias.shape[0], matriz_distancias.shape[1]))
+  

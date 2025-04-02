@@ -2,6 +2,7 @@ from scipy.optimize import minimize, nnls
 import numpy as np
 
 from LAE import LAE
+from backbone import backbone
 
 # RBF Kernel para calcular a matriz de pesos
 # entrada: matriz de adjacencias, matriz de distancias e sigma
@@ -34,7 +35,7 @@ def LLE(dados, matriz_adjacencia):
 
     return matriz_pesos
 
-def gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma = 0.2, k = 2, algoritmo = "RBF"):
+def gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma = 0.2, k = 2, alpha = 0.01, algoritmo = "RBF"):
   
   if algoritmo == "RBF":
     return matriz_adjacencias * RBF(matriz_distancias, sigma)
@@ -44,3 +45,8 @@ def gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma = 0.2
   
   elif algoritmo == "LLE":
     return LLE(dados, matriz_adjacencias)
+
+  elif algoritmo == "Backbone":
+    #Só entra aqui se adjacencia for completa em teste
+    matriz_pesos = matriz_adjacencias * RBF(matriz_distancias, sigma)
+    return backbone(matriz_pesos, alpha)

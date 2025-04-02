@@ -11,11 +11,10 @@ from LGC import LGC
 from utils import ordem_rotulos_primeiro, definir_medida_distancia
 from utils import normalizar_dados, retornar_sigma, checar_matrix_adjacencias
 from processar_rotulos import one_hot
-from backbone import retonarBackBone
 from gravar import gravar_resultados
 
 
-def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos, Esparcidade ):
+def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos):
     
     dataset = []
     if indice_dataset == 0:
@@ -53,7 +52,6 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
 
             # 3 - Para cada algoritmo de adjacencia
             for adjacencia in Adjacencia:
-
                 # Gerar matriz de adjacencia
                 matriz_adjacencias = gerar_matriz_adjacencias(dados, matriz_distancias, medida_distancia, k, adjacencia)
 
@@ -62,49 +60,46 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
 
                 # 4 - Para cada ponderação
                 for ponderacao in Ponderacao:
+
+                    if adjacencia in ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN"] and ponderacao in ["Backbone"]:
+                        break
+
                     # Gerar matriz pesos
-                    matriz_pesos1 = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, ponderacao)
+                    alpha = 0.01
+                    matriz_pesos = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, alpha, ponderacao)
 
-                    for esparcidade in Esparcidade:
+                    simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos)
 
-                        if adjacencia == 'MST' and esparcidade == 'Sim':
-                            break
+                    L_normalizada = laplacianas(matriz_pesos)
 
-                        alpha = 0.1
-                        matriz_pesos2 = retonarBackBone(matriz_pesos1, alpha, esparcidade)
+                    
+                    # 5 - Para cada quantidade de rotulos
+                    for r in Quantidade_rotulos:
 
-                        simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos2)
+                        #Gerar os seeds
+                        seeds = random.sample(range(1, 200), Quantidade_experimentos )
 
-                        L_normalizada = laplacianas(matriz_pesos2)
+                        # 6 - Quantidade de experimentos
+                        for e in range(Quantidade_experimentos):
 
-                        #del matriz_distancias, matriz_adjacencias
-                        # 5 - Para cada quantidade de rotulos
-                        for r in Quantidade_rotulos:
+                            # Retirar quantidade de rotulos
+                            rotulos_semissupervisionado = retirar_rotulos(rotulos, r, classes, seeds[e])
 
-                            #Gerar os seeds
-                            seeds = random.sample(range(1, 200), Quantidade_experimentos )
+                            posicoes_rotulos, ordemObjetos = ordem_rotulos_primeiro(rotulos_semissupervisionado)
 
-                            # 6 - Quantidade de experimentos
-                            for e in range(Quantidade_experimentos):
+                            matriz_rotulos = one_hot(rotulos_semissupervisionado)
 
-                                # Retirar quantidade de rotulos
-                                rotulos_semissupervisionado = retirar_rotulos(rotulos, r, classes, seeds[e])
+                            # Usado no LGC
+                            parametro_regularizacao = 0.9
+                            rotulos_propagados = LGC(L_normalizada, matriz_rotulos, ordemObjetos, posicoes_rotulos, rotulos, parametro_regularizacao)
 
-                                posicoes_rotulos, ordemObjetos = ordem_rotulos_primeiro(rotulos_semissupervisionado)
-
-                                matriz_rotulos = one_hot(rotulos_semissupervisionado)
-
-                                # Usado no LGC
-                                parametro_regularizacao = 0.9
-                                rotulos_propagados = LGC(L_normalizada, matriz_rotulos, ordemObjetos, posicoes_rotulos, rotulos, parametro_regularizacao)
-
-                                # Usar medidas de qualidade
-                                acuracia, f_measure, nRotulos = medidas_qualidade(posicoes_rotulos, ordemObjetos, rotulos, rotulos_propagados)
+                            # Usar medidas de qualidade
+                            acuracia, f_measure, nRotulos = medidas_qualidade(posicoes_rotulos, ordemObjetos, rotulos, rotulos_propagados)
 
 
-                                # gravar resultado em uma linha usando pandas
-                                gravar_resultados(indice_dataset, test_ID, nome_dataset, k, adjacencia, simetrica, conectado, positivo, ponderacao, r, e, esparcidade, seeds[e], nRotulos, acuracia, f_measure)
+                            # gravar resultado em uma linha usando pandas
+                            gravar_resultados(indice_dataset, test_ID, nome_dataset, k, adjacencia, simetrica, conectado, positivo, ponderacao, r, e, seeds[e], nRotulos, acuracia, f_measure)
 
-                                #print("test_ID: ", test_ID, ' ', nRotulos)
+                            #print("test_ID: ", test_ID, ' ', nRotulos)
 
-                                test_ID += 1
+                            test_ID += 1

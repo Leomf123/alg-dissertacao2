@@ -40,9 +40,9 @@ def main(indice_dataset):
 
     K = [4, 6, 8, 10, 12, 14, 16]
 
-    Adjacencia = ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN", "Completa"]
+    Adjacencia = ["Completa"]
 
-    Ponderacao = ["RBF", "Backbone"]
+    Ponderacao = ["Backbone"]
 
     Quantidade_rotulos = [0.02, 0.05, 0.08, 0.1]
 

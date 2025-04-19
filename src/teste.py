@@ -16,11 +16,7 @@ from gravar import gravar_resultados
 
 def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos):
     
-    dataset = []
-    if indice_dataset == 0:
-        dataset = datasets
-    else:
-        dataset.append(datasets[indice_dataset - 1])
+    dataset = datasets[:indice_dataset]
 
     test_ID = 0
     # 1 - Para cada dataset

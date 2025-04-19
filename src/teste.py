@@ -65,7 +65,7 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
                         break
 
                     # Gerar matriz pesos
-                    alpha = 0.05
+                    alpha = 0.1
                     matriz_pesos = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, alpha, ponderacao)
 
                     simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos)

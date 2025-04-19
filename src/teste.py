@@ -103,3 +103,4 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
                             #print("test_ID: ", test_ID, ' ', nRotulos)
 
                             test_ID += 1
+    print('Fim Testes: ', test_ID)

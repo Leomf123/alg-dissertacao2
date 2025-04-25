@@ -14,9 +14,9 @@ from processar_rotulos import one_hot
 from gravar import gravar_resultados
 
 
-def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos):
+def teste(indice_inicio, indice_fim, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos):
     
-    dataset = datasets[:indice_dataset]
+    dataset = datasets[indice_inicio:indice_fim]
     print(dataset)
 
     test_ID = 0
@@ -95,7 +95,7 @@ def teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulo
 
 
                             # gravar resultado em uma linha usando pandas
-                            gravar_resultados(indice_dataset, test_ID, nome_dataset, k, adjacencia, simetrica, conectado, positivo, ponderacao, r, e, seeds[e], nRotulos, acuracia, f_measure)
+                            gravar_resultados(indice_fim, test_ID, nome_dataset, k, adjacencia, simetrica, conectado, positivo, ponderacao, r, e, seeds[e], nRotulos, acuracia, f_measure)
 
                             #print("test_ID: ", test_ID, ' ', nRotulos)
 

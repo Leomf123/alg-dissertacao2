@@ -2,7 +2,7 @@ import sys
 from teste import teste
 
 
-def main(indice_dataset):
+def main(indice_inicio, indice_fim):
     
     datasets = [
         "armstrong2002v1.data",
@@ -48,11 +48,15 @@ def main(indice_dataset):
 
     Quantidade_experimentos = 20
     
-    teste(indice_dataset, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos)
+    teste(indice_inicio, indice_fim, datasets, K, Adjacencia, Ponderacao, Quantidade_rotulos, Quantidade_experimentos)
 
 
 if __name__ == "__main__":
 
-    indice_dataset = int(sys.argv[1])
+    indice_inicio = int(sys.argv[1])
+    indice_fim = int(sys.argv[2])
 
-    main(indice_dataset)
+    if indice_inicio < 0 or indice_fim > 31 or indice_inicio >= indice_fim:
+        print("Forneça valores válidos para o inicio e fim!!!!")
+    else:
+        main(indice_inicio, indice_fim)

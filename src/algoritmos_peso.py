@@ -46,7 +46,7 @@ def gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma = 0.2
   elif algoritmo == "LLE":
     return LLE(dados, matriz_adjacencias)
 
-  elif algoritmo == "Backbone":
+  else:
     #Só entra aqui se adjacencia for completa em teste
     matriz_pesos = matriz_adjacencias * RBF(matriz_distancias, sigma)
     return backbone(matriz_pesos, alpha)

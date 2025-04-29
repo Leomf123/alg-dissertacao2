@@ -42,7 +42,7 @@ def main(indice_inicio, indice_fim):
 
     Adjacencia = ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN", "Completa"]
 
-    Ponderacao = ["RBF", "Backbone"]
+    Ponderacao = ["RBF", "BB-0.01", "BB-0.05", "BB-0.1"]
 
     Quantidade_rotulos = [0.02, 0.05, 0.08, 0.1]
 

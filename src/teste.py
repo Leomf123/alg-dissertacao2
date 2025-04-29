@@ -58,11 +58,16 @@ def teste(indice_inicio, indice_fim, datasets, K, Adjacencia, Ponderacao, Quanti
                 # 4 - Para cada ponderação
                 for ponderacao in Ponderacao:
 
-                    if adjacencia in ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN"] and ponderacao in ["Backbone"]:
+                    if adjacencia in ["MST", "mutKNN", "symKNN", "symFKNN", "SKNN", "MKNN"] and ponderacao in ["BB-0.01", "BB-0.05", "BB-0.1"]:
                         break
 
                     # Gerar matriz pesos
-                    alpha = 0.01
+                    if ponderacao == "BB-0.01":
+                        alpha = 0.01
+                    elif ponderacao == "BB-0.05":
+                        alpha = 0.05
+                    else:
+                        alpha = 0.1
                     matriz_pesos = gerar_matriz_pesos(dados, matriz_adjacencias, matriz_distancias, sigma, k, alpha, ponderacao)
 
                     simetrica, conectado, positivo = checar_matrix_adjacencias(matriz_pesos)
